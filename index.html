@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" class="" id="html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerome Portfolio</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="header">
+            <ul class="header-menu">
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+        </div>
+        <div class="sidebar">
+            <button id="open-drawer-button">Open Drawer</button>
+            <ul class="sidebar-menu">
+                <li><a href="#">Link3</a></li>
+                <li><a href="#">Link4</a></li>
+                <li><a href="#">Link5</a></li>
+                <li><a href="#">Link5</a></li>
+                <li><a href="#">Link5</a></li>
+                <li><a href="#">Link5</a></li>
+                <li><a href="#">Link5</a></li>
+                <li><a href="#">Link5</a></li>
+            </ul>
+        </div>
+        <div id="vue-app" class="main">
+            <div class="collection">
+                <template v-if="products.length > 0" v-for="product in products">
+                    <div class="product-card" @click="setSelectedProduct(product.id)">
+                        <img class="product-image" :src="product.images[0]">
+                        <div class="product-title" v-html="product.title"></div>
+                    </div>
+                </template>
+                <div v-else>Loading.........</div>
+            </div>
+            <div v-if="selected_product" class="product">
+                <img :src="selected_product.images[0]">
+                <div class="product-info">
+                    <h1 class="text-5xl font-bold mb-2" v-html="selected_product.title"></h1>
+                    <div class="price" v-html="'₱' + selected_product.price"></div>
+                    <div v-html="selected_product.description"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="drawer" aria-hidden="true">
+        <button id="close-drawer-button">Close Drawer</button>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const options = {
+            data() {
+                return {
+                    products: [],
+                    selected_product_id:null
+                }
+            },
+            computed: {
+                selected_product(){
+                    return this.products.find(product => {
+                        return product.id == this.selected_product_id;
+                    })
+                }
+            },
+            methods: {
+                setSelectedProduct(id){
+                    this.selected_product_id = id;
+                }
+            },
+            mounted() {
+                fetch('https://api.escuelajs.co/api/v1/products?offset=0&limit=4')
+                    .then(res => res.json())
+                    .then(json => this.products = json);
+            }
+        };
+        Vue.createApp(options).mount('#vue-app');
+    </script>
+    <script src="script.js">
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  @apply bg-gray-300;
+}
+
+.page-container {
+  @apply grid h-full gap-x-3 grid-cols-[minmax(auto,150px)_3fr] grid-rows-[50px,1fr];
+}
+
+.header {
+  @apply col-start-1 col-end-3 bg-slate-100;
+}
+
+.header-menu {
+  @apply flex mt-4 list-none p-0 justify-center gap-3;
+}
+
+.sidebar {
+  @apply bg-slate-200 pl-3 grow shrink-0 basis-24 hidden sm:block;
+}
+
+.sidebar-menu {
+  @apply list-none p-0 h-full;
+}
+
+button {
+  @apply px-3 py-2 rounded bg-slate-600 text-slate-50 m-1 hover:text-green-600;
+}
+
+ul li a {
+  @apply hover:underline;
+}
+
+h1 {
+  @apply text-5xl font-bold my-2;
+}
+
+.drawer {
+  @apply bg-slate-200 h-screen absolute top-0 w-[50vw] right-0 transition-all aria-hidden:-right-full;
+}
+
+.collection {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+  background-color: #e0e0e0;
+  padding: 10px;
+}
+
+.product-image {
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 100%;
+  padding: 20px;
+  grid-gap: 20px;
+}
+.product .price {
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.product img {
+  max-width: 100%;
+  grid-column: 1/2;
+  grid-row: 1/4;
+}
+/* .product h1, .product .price, .product select {
+  grid-column: 2/3;
+} */
